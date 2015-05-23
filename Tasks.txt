@@ -1,3 +1,2 @@
 - file streams
-- buffered stream
 - sockets
