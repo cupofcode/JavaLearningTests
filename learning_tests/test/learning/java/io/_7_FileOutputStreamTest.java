@@ -42,7 +42,6 @@ public class _7_FileOutputStreamTest {
 		
 		fileOutput.close();
 		file.delete();
-		
 	}
 
 }
