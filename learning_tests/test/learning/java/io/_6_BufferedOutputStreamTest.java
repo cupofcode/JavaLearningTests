@@ -14,36 +14,36 @@ public class _6_BufferedOutputStreamTest {
 	public void bufferedStreamAutoflushesItsContentWhenTheBufferIsFull() throws IOException {
 		int bufferSize = 2;
 		ByteArrayOutputStream outputStore = new ByteArrayOutputStream();
-		BufferedOutputStream outputStream = new BufferedOutputStream(outputStore, bufferSize);
+		BufferedOutputStream bufferedOoutput = new BufferedOutputStream(outputStore, bufferSize);
 		
-		outputStream.write((byte) 1);
+		bufferedOoutput.write((byte) 1);
 		assertEquals(0, outputStore.toByteArray().length);
 		
-		outputStream.write((byte) 2);
+		bufferedOoutput.write((byte) 2);
 		assertEquals(0, outputStore.toByteArray().length);
 		
-		outputStream.write((byte) 3);
-		assertEquals("exceeding the buffer length should write the buffered bytes to the underlying output stream", 2, outputStore.toByteArray().length);
+		bufferedOoutput.write((byte) 3);
+		assertEquals("should auto-flush the content", 2, outputStore.toByteArray().length);
 		
-		outputStream.close();
+		bufferedOoutput.close();
 	}
 	
 	@Test
 	public void flushCommitsTheBufferedBytesInToTheSink() throws IOException {
 		int bufferSize = 2;
 		ByteArrayOutputStream outputStore = new ByteArrayOutputStream();
-		BufferedOutputStream outputStream = new BufferedOutputStream(outputStore, bufferSize);
+		BufferedOutputStream bufferedOoutput = new BufferedOutputStream(outputStore, bufferSize);
 		
-		outputStream.write((byte) 1);
+		bufferedOoutput.write((byte) 1);
 		assertEquals(0, outputStore.toByteArray().length);
 		
-		outputStream.write((byte) 2);
+		bufferedOoutput.write((byte) 2);
 		assertEquals(0, outputStore.toByteArray().length);
 		
-		outputStream.flush();
-		assertEquals("flush should write the buffered bytes to the underlying output stream", 2, outputStore.toByteArray().length);
+		bufferedOoutput.flush();
+		assertEquals("should commit the buffer", 2, outputStore.toByteArray().length);
 		
-		outputStream.close();
+		bufferedOoutput.close();
 	}
 
 }
