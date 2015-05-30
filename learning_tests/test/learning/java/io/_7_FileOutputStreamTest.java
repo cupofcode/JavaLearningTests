@@ -49,8 +49,8 @@ public class _7_FileOutputStreamTest {
 		fileInput = new FileInputStream(file);
 		assertEquals(1, fileInput.read());
 		assertEquals(2, fileInput.read());
-		assertEquals("should be -1 after EOF", -1, fileInput.read());
-		assertEquals("should be -1 after EOF", -1, fileInput.read());
+		assertEquals("Value after all bytes read", -1, fileInput.read());
+		assertEquals("Value after all bytes read", -1, fileInput.read());
 	}
 	
 	@Test
@@ -73,7 +73,7 @@ public class _7_FileOutputStreamTest {
 		
 		fileInput = new FileInputStream(file);
 		assertEquals(2, fileInput.read());
-		assertEquals("should be -1 after EOF", -1, fileInput.read());
+		assertEquals("Value after all bytes read", -1, fileInput.read());
 	}
 	
 	@Test
@@ -88,8 +88,8 @@ public class _7_FileOutputStreamTest {
 		
 		fileInput = new FileInputStream(file);
 		assertEquals(1, fileInput.read());
-		assertEquals("appended value", 2, fileInput.read());
-		assertEquals("should be -1 after EOF", -1, fileInput.read());
+		assertEquals("Appended value", 2, fileInput.read());
+		assertEquals("Value after all bytes read", -1, fileInput.read());
 	}
 
 }

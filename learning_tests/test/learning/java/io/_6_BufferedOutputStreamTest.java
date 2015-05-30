@@ -23,7 +23,7 @@ public class _6_BufferedOutputStreamTest {
 		assertEquals(0, outputStore.toByteArray().length);
 		
 		bufferedOoutput.write((byte) 3);
-		assertEquals("should auto-flush the content", 2, outputStore.toByteArray().length);
+		assertEquals("Output store length after auto-flush", 2, outputStore.toByteArray().length);
 		
 		bufferedOoutput.close();
 	}
@@ -41,7 +41,7 @@ public class _6_BufferedOutputStreamTest {
 		assertEquals(0, outputStore.toByteArray().length);
 		
 		bufferedOoutput.flush();
-		assertEquals("should commit the buffer", 2, outputStore.toByteArray().length);
+		assertEquals("Output store length after explicit flush", 2, outputStore.toByteArray().length);
 		
 		bufferedOoutput.close();
 	}
