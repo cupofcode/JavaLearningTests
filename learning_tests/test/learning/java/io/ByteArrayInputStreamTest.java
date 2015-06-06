@@ -3,17 +3,12 @@ package test.learning.java.io;
 import static org.junit.Assert.*;
 
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
 import org.junit.Test;
 
-/**
- * This test case demonstrates how to use ByteArrayInputStream and 
- * ByteArrayOutputStream as stub and spy objects.
- */
-public class ByteArrayStreamTest {
+public class ByteArrayInputStreamTest {
 	
 	@Test
 	public void read_ReturnsTheNextByteInTheStream() throws IOException {
@@ -51,26 +46,39 @@ public class ByteArrayStreamTest {
 		input.skip(2);
 		assertEquals("Return value after reaching the end", -1, input.read());
 	}
-
+	
 	@Test
-	public void bytesPulledFromInputArrayStreamArePushedIntoArrayOuputStream() throws IOException {
-		InputStream input = new ByteArrayInputStream(new byte[] {1,2}); // stub
-		ByteArrayOutputStream output = new ByteArrayOutputStream(); // spy
+	public void mark_And_Reset_MakesAlreadyReadBytesAvailableAgain() throws IOException {
+		InputStream input = new ByteArrayInputStream(new byte[] {1,2,3});
+		assertTrue(input.markSupported());
 		
-		output.write(input.read());
-		output.write(input.read());
-		output.write(input.read());
-		output.write(input.read());
-				
-		byte[] outputBytes = output.toByteArray();
+		input.read();
 		
-		assertEquals(1, outputBytes[0]);
-		assertEquals(2, outputBytes[1]);
-		assertEquals(-1, outputBytes[2]);
-		assertEquals(-1, outputBytes[3]);
+		input.mark(Integer.MAX_VALUE); // marks at 1
 		
-		input.close();
-		output.close();
-	}
+		input.read();
+		input.read();
+		
+		assertEquals("No more bytes to read", 0, input.available());
 
+		input.reset(); // back to mark position
+		
+		assertEquals("Number of bytes available again", 2, input.available());
+		assertEquals(2, input.read());
+		assertEquals(3, input.read());
+	}
+	
+	@Test
+	public void read_WithOffsetAndLength() throws IOException {
+		InputStream input = new ByteArrayInputStream(new byte[] {1,2,3,4});
+		
+		byte[] store = new byte[5];
+		int offsetInStore = 1;
+		int lengthToRead = 2;
+		
+		input.read(store, offsetInStore, lengthToRead);
+
+		assertArrayEquals(new byte[] {0,1,2,0,0}, store);
+	}
+	
 }
