@@ -69,7 +69,7 @@ public class ByteArrayInputStreamTest {
 	}
 	
 	@Test
-	public void read_WithOffsetAndLength() throws IOException {
+	public void read_PassesToAByteArrayWithOffsetAndLength() throws IOException {
 		InputStream input = new ByteArrayInputStream(new byte[] {1,2,3,4});
 		
 		byte[] store = new byte[5];
