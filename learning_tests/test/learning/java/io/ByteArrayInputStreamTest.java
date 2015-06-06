@@ -81,4 +81,17 @@ public class ByteArrayInputStreamTest {
 		assertArrayEquals(new byte[] {0,1,2,0,0}, store);
 	}
 	
+	@Test
+	public void constructureWithPredefinedByteSource() throws IOException {
+		byte[] source  = new byte[] {1,2,3,4};
+		int offsetInSource= 1;
+		int lengthToRead = 2;
+		
+		InputStream input = new ByteArrayInputStream(source, offsetInSource, lengthToRead);
+		
+		assertEquals("First value after offset", 2, input.read());
+		assertEquals(3, input.read());
+		assertEquals("Value after exceeding the length", -1, input.read());
+	}
+	
 }
