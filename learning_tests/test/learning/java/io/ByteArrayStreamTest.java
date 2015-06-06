@@ -13,7 +13,7 @@ import org.junit.Test;
  * This test case demonstrates how to use ByteArrayInputStream and 
  * ByteArrayOutputStream as stub and spy objects.
  */
-public class _2_ByteArrayStreamTest {
+public class ByteArrayStreamTest {
 	
 	@Test
 	public void read_ReturnsTheNextByteInTheStream() throws IOException {

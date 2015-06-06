@@ -14,7 +14,7 @@ import org.junit.Test;
 /**
  * This test case demonstrates FilterInputStream by filtering the odd numbers.
  */
-public class _4_FilterInputStreamTest {
+public class FilterInputStreamTest {
 
 	@Test
 	public void oddNumbersAreFiltered() throws IOException {

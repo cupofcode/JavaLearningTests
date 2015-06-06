@@ -13,7 +13,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class _7_FileOutputStreamTest {
+public class FileOutputStreamTest {
 	private File file;
 	private FileOutputStream fileOutput;
 	private FileInputStream fileInput;

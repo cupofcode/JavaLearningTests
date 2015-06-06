@@ -16,7 +16,7 @@ import org.junit.Test;
  * to be used as a stub, but this example gives clues about 
  * writing test doubles from scratch.
  */
-public class _1_InputStreamStubTest {
+public class InputStreamStubTest {
 	private InputStream stub;
 	
 	@Before

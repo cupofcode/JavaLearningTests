@@ -8,7 +8,7 @@ import java.io.IOException;
 
 import org.junit.Test;
 
-public class _6_BufferedOutputStreamTest {
+public class BufferedOutputStreamTest {
 
 	@Test
 	public void bufferedStreamAutoflushesItsContentWhenTheBufferIsFull() throws IOException {

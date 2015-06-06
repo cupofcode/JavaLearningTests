@@ -14,7 +14,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 @SuppressWarnings("serial")
-public class _5_ObjectStreamTest {
+public class ObjectStreamTest {
 	private ByteArrayOutputStream outputStore;
 	private ObjectOutputStream objectOutput;
 	private ObjectInputStream objectInput;

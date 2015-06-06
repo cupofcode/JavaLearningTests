@@ -9,7 +9,7 @@ import java.io.IOException;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
-public class _3_DataStreamTest {
+public class DataStreamTest {
 
 	@Test
 	public void pushIntoDataOutputStreamAndPullFromDataInputStream() throws IOException {
