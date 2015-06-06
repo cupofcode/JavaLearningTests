@@ -1,6 +1,6 @@
 package test.learning.java.io;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -14,6 +14,43 @@ import org.junit.Test;
  * ByteArrayOutputStream as stub and spy objects.
  */
 public class _2_ByteArrayStreamTest {
+	
+	@Test
+	public void read_ReturnsTheNextByteInTheStream() throws IOException {
+		InputStream input = new ByteArrayInputStream(new byte[] {1,2});
+		
+		assertEquals(1, input.read());
+		assertEquals(2, input.read());
+		
+		assertEquals("Return value after reaching the end", -1, input.read());
+		assertEquals("Return value after reaching the end", -1, input.read());
+	}
+	
+	@Test
+	public void available_ReturnsTheNumberOfBytesThatCanBeRead() throws IOException {
+		InputStream input = new ByteArrayInputStream(new byte[] {1,2});
+		assertEquals(2, input.available());
+		
+		input.read();
+		assertEquals(1, input.available());
+		
+		input.read();
+		assertEquals(0, input.available());
+		
+		input.read();
+		assertEquals("Available bytes after reaching the end", 0, input.available());
+	}
+	
+	@Test
+	public void skip_JumpsOverSpecifiedNumberOfBytes() throws IOException {
+		InputStream input = new ByteArrayInputStream(new byte[] {1,2,3});
+		
+		input.skip(2);
+		assertEquals(3, input.read());
+		
+		input.skip(2);
+		assertEquals("Return value after reaching the end", -1, input.read());
+	}
 
 	@Test
 	public void bytesPulledFromInputArrayStreamArePushedIntoArrayOuputStream() throws IOException {
