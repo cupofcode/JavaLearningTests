@@ -13,37 +13,37 @@ public class BufferedOutputStreamTest {
 	@Test
 	public void bufferedStreamAutoflushesItsContentWhenTheBufferIsFull() throws IOException {
 		int bufferSize = 2;
-		ByteArrayOutputStream outputStore = new ByteArrayOutputStream();
-		BufferedOutputStream bufferedOoutput = new BufferedOutputStream(outputStore, bufferSize);
+		ByteArrayOutputStream store = new ByteArrayOutputStream();
+		BufferedOutputStream output = new BufferedOutputStream(store, bufferSize);
 		
-		bufferedOoutput.write((byte) 1);
-		assertEquals(0, outputStore.toByteArray().length);
+		output.write(1);
+		assertEquals(0, store.toByteArray().length);
 		
-		bufferedOoutput.write((byte) 2);
-		assertEquals(0, outputStore.toByteArray().length);
+		output.write(2);
+		assertEquals(0, store.toByteArray().length);
 		
-		bufferedOoutput.write((byte) 3);
-		assertEquals("Output store length after auto-flush", 2, outputStore.toByteArray().length);
+		output.write((byte) 3);
+		assertEquals("Output store length after auto-flush", 2, store.toByteArray().length);
 		
-		bufferedOoutput.close();
+		output.close();
 	}
 	
 	@Test
-	public void flushCommitsTheBufferedBytesInToTheSink() throws IOException {
+	public void flushCommitsTheBufferedBytesInToTheStore() throws IOException {
 		int bufferSize = 2;
-		ByteArrayOutputStream outputStore = new ByteArrayOutputStream();
-		BufferedOutputStream bufferedOoutput = new BufferedOutputStream(outputStore, bufferSize);
+		ByteArrayOutputStream store = new ByteArrayOutputStream();
+		BufferedOutputStream output = new BufferedOutputStream(store, bufferSize);
 		
-		bufferedOoutput.write((byte) 1);
-		assertEquals(0, outputStore.toByteArray().length);
+		output.write((byte) 1);
+		assertEquals(0, store.toByteArray().length);
 		
-		bufferedOoutput.write((byte) 2);
-		assertEquals(0, outputStore.toByteArray().length);
+		output.write((byte) 2);
+		assertEquals(0, store.toByteArray().length);
 		
-		bufferedOoutput.flush();
-		assertEquals("Output store length after explicit flush", 2, outputStore.toByteArray().length);
+		output.flush();
+		assertEquals("Output store length after explicit flush", 2, store.toByteArray().length);
 		
-		bufferedOoutput.close();
+		output.close();
 	}
 
 }
