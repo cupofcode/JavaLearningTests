@@ -31,7 +31,7 @@ public class ByteArrayOutputStreamTest {
 	}
 	
 	@Test
-	public void write_FromPredefinedByteSource() {
+	public void write_WithOffsetAndLengthFromPredefinedByteSource() {
 		byte[] source  = new byte[] {1,2,3,4};
 		int offsetInSource= 1;
 		int lengthToRead = 2;

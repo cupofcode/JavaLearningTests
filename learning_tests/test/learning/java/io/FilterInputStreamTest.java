@@ -1,13 +1,12 @@
 package test.learning.java.io;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.io.ByteArrayInputStream;
 import java.io.FilterInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.junit.Test;
 
@@ -93,7 +92,7 @@ public class FilterInputStreamTest {
 	}
 
 	@Test
-	public void read_PassesToAByteArrayWithOffsetAndLengthFromTheSource() throws IOException {
+	public void read_PassesToAByteArrayFromTheSourceWithOffsetAndLength() throws IOException {
 		InputStream source = new ByteArrayInputStream(new byte[] {1,2,3,4});
 		InputStream input = new FilterInputStream(source) {};
 		
@@ -104,6 +103,22 @@ public class FilterInputStreamTest {
 		input.read(store, offsetInStore, lengthToRead);
 
 		assertArrayEquals(new byte[] {0,1,2,0,0}, store);
+	}
+	
+	@Test
+	public void close_ClosesTheSource() throws IOException {
+		StringBuilder callStack = new StringBuilder();
+		
+		InputStream source = new InputStream() {
+			public void close() {callStack.append("-close");}
+			public int read() throws IOException {return 0;} // dummy
+		};
+		
+		InputStream input = new FilterInputStream(source) {};
+		
+		input.close();
+		
+		assertEquals("-close", callStack.toString());
 	}
 
 }
