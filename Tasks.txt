@@ -1,5 +1,7 @@
 - DataInputStream
 - DataOutputStream
+- ObjectInputStream
+- ObjectOutputStream
 - FileInputStream
 - FileOutputStream
 
