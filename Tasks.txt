@@ -1,5 +1,3 @@
-- BufferedInputStream
-- BufferedOutputStream
 - DataInputStream
 - DataOutputStream
 - FileInputStream
