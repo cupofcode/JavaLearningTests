@@ -4,8 +4,8 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
-import java.io.FilterInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -13,14 +13,14 @@ import org.junit.Test;
 
 /**
  * Test methods of this class are almost identical to 
- * {@code ByteArrayInputStreamTest}.
+ * {@code FilterInputStreamTest}.
  */
-public class FilterInputStreamTest {
-	
+public class BufferedInputStreamTest {
+
 	@Test
 	public void read_ReturnsTheNextByteInTheSourceStream() throws IOException {
 		InputStream source = new ByteArrayInputStream(new byte[] {1,2});
-		InputStream input = new FilterInputStream(source) {};
+		InputStream input = new BufferedInputStream(source);
 		
 		assertEquals(1, input.read());
 		assertEquals(2, input.read());
@@ -32,7 +32,7 @@ public class FilterInputStreamTest {
 	@Test
 	public void available_ReturnsTheNumberOfBytesThatCanBeReadFromTheSourceStream() throws IOException {
 		InputStream source = new ByteArrayInputStream(new byte[] {1,2});
-		InputStream input = new FilterInputStream(source) {};
+		InputStream input = new BufferedInputStream(source);
 		
 		assertEquals(2, input.available());
 		
@@ -49,7 +49,7 @@ public class FilterInputStreamTest {
 	@Test
 	public void skip_JumpsOverSpecifiedNumberOfBytesInTheSourceStream() throws IOException {
 		InputStream source = new ByteArrayInputStream(new byte[] {1,2,3});
-		InputStream input = new FilterInputStream(source) {};
+		InputStream input = new BufferedInputStream(source);
 		
 		input.skip(2);
 		assertEquals(3, input.read());
@@ -60,8 +60,14 @@ public class FilterInputStreamTest {
 	
 	@Test
 	public void mark_And_Reset_MakesAlreadyReadBytesAvailableAgainInTheSourceStream() throws IOException {
-		InputStream source = new ByteArrayInputStream(new byte[] {1,2,3});
-		InputStream input = new FilterInputStream(source) {};
+
+		// Source without mark-reset capability
+		InputStream source = new ByteArrayInputStream(new byte[] {1,2,3}) {
+			@Override public void mark(int readAheadLimit) {}
+			@Override public synchronized void reset() {super.reset();}
+		};
+		
+		InputStream input = new BufferedInputStream(source);
 		
 		assertTrue(input.markSupported());
 		
@@ -84,26 +90,12 @@ public class FilterInputStreamTest {
 	@Test
 	public void read_PassesToAByteArrayFromTheSourceStream() throws IOException {
 		InputStream source = new ByteArrayInputStream(new byte[] {1,2,3,4});
-		InputStream input = new FilterInputStream(source) {};
+		InputStream input = new BufferedInputStream(source);
 		
 		byte[] store = new byte[3];		
 		input.read(store);
 	
 		assertArrayEquals(new byte[] {1,2,3}, store);
-	}
-
-	@Test
-	public void read_PassesToAByteArrayWithOffsetAndLengthFromTheSourceStream() throws IOException {
-		InputStream source = new ByteArrayInputStream(new byte[] {1,2,3,4});
-		InputStream input = new FilterInputStream(source) {};
-		
-		byte[] store = new byte[5];
-		int offsetInStore = 1;
-		int lengthToRead = 2;
-		
-		input.read(store, offsetInStore, lengthToRead);
-
-		assertArrayEquals(new byte[] {0,1,2,0,0}, store);
 	}
 	
 	@Test
@@ -115,11 +107,10 @@ public class FilterInputStreamTest {
 			public int read() throws IOException {return 0;} // dummy
 		};
 		
-		InputStream input = new FilterInputStream(source) {};
+		InputStream input = new BufferedInputStream(source);
 		
 		input.close();
 		
 		assertEquals("-close", callStack.toString());
 	}
-
 }

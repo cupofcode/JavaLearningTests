@@ -17,7 +17,7 @@ import org.junit.Test;
 public class FilterOutputStreamTest {
 
 	@Test
-	public void write() throws IOException {
+	public void write_WritesToTheStore() throws IOException {
 		ByteArrayOutputStream store = new ByteArrayOutputStream();
 		OutputStream output = new FilterOutputStream(store);
 		
@@ -28,7 +28,7 @@ public class FilterOutputStreamTest {
 	}
 	
 	@Test
-	public void write_FromPredefinedByteSource() throws IOException {
+	public void write_FromPredefinedByteSourceToTheStore() throws IOException {
 		byte[] source  = new byte[] {1,2,3,4};
 		
 		ByteArrayOutputStream store = new ByteArrayOutputStream();
@@ -40,7 +40,7 @@ public class FilterOutputStreamTest {
 	}
 
 	@Test
-	public void write_FromPredefinedByteSourceWithOffsetAndLength() throws IOException {
+	public void write_FromPredefinedByteSourceWithOffsetAndLengthToTheStore() throws IOException {
 		byte[] source  = new byte[] {1,2,3,4};
 		int offsetInSource= 1;
 		int lengthToRead = 2;
@@ -51,6 +51,24 @@ public class FilterOutputStreamTest {
 		output.write(source, offsetInSource, lengthToRead);
 
 		assertArrayEquals(new byte[] {2,3},  store.toByteArray());
+	}
+	
+	@Test
+	public void flush_FlushesTheStore() throws IOException {
+		StringBuilder callStack = new StringBuilder();
+		
+		OutputStream store = new OutputStream() {
+			public void flush() {callStack.append("-flush");}
+			public void write(int b) throws IOException {} // dummy
+		};
+		
+		OutputStream output = new FilterOutputStream(store);
+		
+		output.flush();
+		
+		assertEquals("-flush", callStack.toString());
+
+		output.close();
 	}
 	
 	@Test
