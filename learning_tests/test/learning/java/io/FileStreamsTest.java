@@ -13,7 +13,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class FileOutputStreamTest {
+public class FileStreamsTest {
 	private File file;
 	private FileOutputStream fileOutput;
 	private FileInputStream fileInput;
@@ -83,7 +83,8 @@ public class FileOutputStreamTest {
 		fileOutput.close();
 		
 		// Reopen and rewrite
-		fileOutput = new FileOutputStream(file, true);
+		boolean append = true;
+		fileOutput = new FileOutputStream(file, append);
 		fileOutput.write(2);
 		
 		fileInput = new FileInputStream(file);

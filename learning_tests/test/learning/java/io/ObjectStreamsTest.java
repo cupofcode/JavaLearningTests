@@ -14,9 +14,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 @SuppressWarnings("serial")
-public class ObjectStreamTest {
+public class ObjectStreamsTest {
 	private ByteArrayOutputStream outputStore;
 	private ObjectOutputStream objectOutput;
+	
 	private ObjectInputStream objectInput;
 
 	@Before
@@ -45,15 +46,15 @@ public class ObjectStreamTest {
 	}
 	
 	@Test
-	public void compositeAndInheritedObject() throws Exception {
+	public void superClassesAndReferencedClassesAreSupported() throws Exception {
 		MyClass object = new MyClass();
 		objectOutput.writeObject(object);
 		
 		pushWrittenBytesToObjectInput();
 		
 		MyClass objectRead = (MyClass) objectInput.readObject();
-		assertEquals("SuperClass", objectRead.stringOfSuper);
 		assertEquals("MyClass", objectRead.string);
+		assertEquals("SuperClass", objectRead.stringOfSuper);
 		assertEquals("ReferencedClass", objectRead.referencedClass.stringOfReferenced);
 	}
 	
