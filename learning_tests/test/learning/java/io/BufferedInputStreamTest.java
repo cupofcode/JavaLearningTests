@@ -72,9 +72,7 @@ public class BufferedInputStreamTest {
 		assertTrue(input.markSupported());
 		
 		input.read();
-		
 		input.mark(Integer.MAX_VALUE); // marks at 1
-		
 		input.read();
 		input.read();
 		
