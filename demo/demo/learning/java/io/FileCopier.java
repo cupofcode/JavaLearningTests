@@ -71,11 +71,12 @@ public class FileCopier {
 
 	private void logFinish(String fromFileName, String toFileName, long deltaTime) {
 		double deltaTimeInSeconds = deltaTime * 1E-9;	
-		double speed = byteCount / deltaTimeInSeconds;
+		double bitsPerSecond = 8 * byteCount / deltaTimeInSeconds;
+		double megaBitsPerSecond = bitsPerSecond / 1E6;
 		
 		System.out.println(fromFileName + " copied to " + toFileName + " in " + deltaTimeInSeconds + " seconds.");
 		System.out.println("Size: " + byteCount + " bytes.");
-		System.out.println("Speed: " + speed + " bytes per second.");
+		System.out.println("Speed: " + megaBitsPerSecond + " Mbps.");
 	}
 
 }
