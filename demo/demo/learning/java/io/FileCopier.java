@@ -11,7 +11,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 /**
- * This program copies a file on disk. Prints out the file size and execution duration.
+ * This program copies a file on disk.
+ * Prints out the file size, execution duration and speed.
  */
 public class FileCopier {
 
@@ -19,8 +20,6 @@ public class FileCopier {
 	 * This command takes two arguments.
 	 * The first one is the name of the existing file to be copied.
 	 * The second one is the name of the new file created.
-	 * 
-	 * @throws IOException
 	 */
 	public static void main(String[] args) throws IOException {
 		String fromFileName = args[0];

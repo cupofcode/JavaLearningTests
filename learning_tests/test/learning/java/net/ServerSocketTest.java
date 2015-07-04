@@ -3,6 +3,8 @@ package test.learning.java.net;
 import static org.junit.Assert.*;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
@@ -41,7 +43,7 @@ public class ServerSocketTest {
 	}
 	
 	@Test
-	public void getPort() {
+	public void getLocalPort() {
 		assertEquals(LOCAL_PORT, serverSocket.getLocalPort());
 	}
 	
@@ -56,7 +58,7 @@ public class ServerSocketTest {
 	@Test (expected = SocketTimeoutException.class)
 	public void socketTimeout() throws IOException {
 		serverSocket.setSoTimeout(1);
-		serverSocket.accept(); // throws SocketTimeoutException after 1 ms
+		serverSocket.accept();
 	}
 	
 	@Test
@@ -68,12 +70,21 @@ public class ServerSocketTest {
 	}
 	
 	@Test
-	public void connectedClinentSocketCanBeAccepted() throws IOException {		
+	public void socketCommunicationAfterAccept() throws IOException {		
 		Socket clientSideSocket = new Socket("localhost", LOCAL_PORT);
 		Socket serverSideSocket = serverSocket.accept();
+
+		OutputStream output = clientSideSocket.getOutputStream();
+		InputStream input = serverSideSocket.getInputStream();
+		
+		output.write(3);
+		output.write(5);
+		
+		assertEquals(3, input.read());
+		assertEquals(5, input.read());
 		
 		clientSideSocket.close();
 		serverSideSocket.close();
 	}
-
+	
 }
