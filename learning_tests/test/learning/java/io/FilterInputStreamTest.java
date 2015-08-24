@@ -80,7 +80,7 @@ public class FilterInputStreamTest {
 	}
 	
 	@Test
-	public void read_PassesToAByteArrayFromTheSourceStream() throws IOException {
+	public void read_CopiesToAByteArrayFromTheSourceStream() throws IOException {
 		InputStream source = new ByteArrayInputStream(new byte[] {1,2,3,4});
 		InputStream input = new FilterInputStream(source) {};
 		
@@ -91,7 +91,7 @@ public class FilterInputStreamTest {
 	}
 
 	@Test
-	public void read_PassesToAByteArrayWithOffsetAndLengthFromTheSourceStream() throws IOException {
+	public void read_CopiesToAByteArrayWithOffsetAndLengthFromTheSourceStream() throws IOException {
 		InputStream source = new ByteArrayInputStream(new byte[] {1,2,3,4});
 		InputStream input = new FilterInputStream(source) {};
 		

@@ -86,7 +86,7 @@ public class BufferedInputStreamTest {
 	}
 	
 	@Test
-	public void read_PassesToAByteArrayFromTheSourceStream() throws IOException {
+	public void read_CopiesToAByteArrayFromTheSourceStream() throws IOException {
 		InputStream source = new ByteArrayInputStream(new byte[] {1,2,3,4});
 		InputStream input = new BufferedInputStream(source);
 		
