@@ -12,8 +12,8 @@ public class ByteArrayInputStreamTest {
 	
 	@Test
 	public void read_ReturnsTheNextByteInTheStream() throws IOException {
-		byte[] source  = new byte[] {1,2};
-		InputStream input = new ByteArrayInputStream(source);
+		byte[] bytes  = new byte[] {1,2};
+		InputStream input = new ByteArrayInputStream(bytes);
 		
 		assertEquals(1, input.read());
 		assertEquals(2, input.read());
@@ -24,8 +24,8 @@ public class ByteArrayInputStreamTest {
 	
 	@Test
 	public void available_ReturnsTheNumberOfBytesThatCanBeRead() throws IOException {
-		byte[] source  = new byte[] {1,2};
-		InputStream input = new ByteArrayInputStream(source);
+		byte[] bytes  = new byte[] {1,2};
+		InputStream input = new ByteArrayInputStream(bytes);
 		
 		assertEquals(2, input.available());
 		
@@ -41,8 +41,8 @@ public class ByteArrayInputStreamTest {
 	
 	@Test
 	public void skip_JumpsOverSpecifiedNumberOfBytes() throws IOException {
-		byte[] source  = new byte[] {1,2,3};
-		InputStream input = new ByteArrayInputStream(source);
+		byte[] bytes  = new byte[] {1,2,3};
+		InputStream input = new ByteArrayInputStream(bytes);
 		
 		input.skip(2);
 		assertEquals(3, input.read());
@@ -53,8 +53,8 @@ public class ByteArrayInputStreamTest {
 	
 	@Test
 	public void mark_And_Reset_MakesAlreadyReadBytesAvailableAgain() throws IOException {
-		byte[] source  = new byte[] {1,2,3};
-		InputStream input = new ByteArrayInputStream(source);
+		byte[] bytes  = new byte[] {1,2,3};
+		InputStream input = new ByteArrayInputStream(bytes);
 		
 		assertTrue(input.markSupported());
 		
@@ -74,8 +74,8 @@ public class ByteArrayInputStreamTest {
 	
 	@Test
 	public void read_CopiesToAByteArrayWithOffsetAndLength() throws IOException {
-		byte[] source  = new byte[] {1,2,3,4};
-		InputStream input = new ByteArrayInputStream(source);
+		byte[] bytes  = new byte[] {1,2,3,4};
+		InputStream input = new ByteArrayInputStream(bytes);
 		
 		byte[] store = new byte[5];
 		int offsetInStore = 1;
@@ -88,11 +88,11 @@ public class ByteArrayInputStreamTest {
 	
 	@Test
 	public void constructorWithOffsetAndLength() throws IOException {
-		byte[] source  = new byte[] {1,2,3,4};
-		int offsetInSource= 1;
-		int lengthToRead = 2;
+		byte[] bytes  = new byte[] {1,2,3,4};
+		int offset= 1;
+		int length = 2;
 		
-		InputStream input = new ByteArrayInputStream(source, offsetInSource, lengthToRead);
+		InputStream input = new ByteArrayInputStream(bytes, offset, length);
 		
 		assertEquals("First value after offset", 2, input.read());
 		assertEquals(3, input.read());
