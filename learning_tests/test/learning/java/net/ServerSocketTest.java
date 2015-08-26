@@ -56,7 +56,7 @@ public class ServerSocketTest {
 	}
 	
 	@Test (expected = SocketTimeoutException.class)
-	public void socketTimeout() throws IOException {
+	public void accept_throwsExceptionAfterTimeout() throws IOException {
 		serverSocket.setSoTimeout(1);
 		serverSocket.accept();
 	}
@@ -70,7 +70,7 @@ public class ServerSocketTest {
 	}
 	
 	@Test
-	public void socketCommunicationAfterAccept() throws IOException {		
+	public void socketCommunicationAfterAccept() throws IOException {
 		Socket clientSideSocket = new Socket("localhost", LOCAL_PORT);
 		Socket serverSideSocket = serverSocket.accept();
 

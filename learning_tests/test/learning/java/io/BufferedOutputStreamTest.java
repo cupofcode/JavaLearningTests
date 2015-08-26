@@ -22,7 +22,7 @@ public class BufferedOutputStreamTest {
 		output.write(2);
 		assertEquals(0, store.toByteArray().length);
 		
-		output.write((byte) 3);
+		output.write(3);
 		assertEquals("Output store length after auto-flush", 2, store.toByteArray().length);
 		
 		output.close();
@@ -34,10 +34,10 @@ public class BufferedOutputStreamTest {
 		ByteArrayOutputStream store = new ByteArrayOutputStream();
 		BufferedOutputStream output = new BufferedOutputStream(store, bufferSize);
 		
-		output.write((byte) 1);
+		output.write(1);
 		assertEquals(0, store.toByteArray().length);
 		
-		output.write((byte) 2);
+		output.write(2);
 		assertEquals(0, store.toByteArray().length);
 		
 		output.flush();
