@@ -87,6 +87,7 @@ public class PatternTest {
 		assertTrue(matches("\\d", "0"));
 		assertTrue(matches("\\d", "9"));
 		
+		assertFalse(matches("\\d", "a"));
 		assertFalse(matches("\\d", "00"));
 	}
 	
@@ -170,6 +171,15 @@ public class PatternTest {
 		
 		assertFalse(matches("(ab)|(cd)", "ad"));
 		assertFalse(matches("(ab)|(cd)", "abcd"));
+	}
+	
+	@Test
+	public void matches_LogicalOperationsMixedWithWithQuantifiers() {
+		assertTrue(matches("(ab)+", "abab"));
+		assertFalse(matches("(ab)", "abab"));
+		
+		assertTrue(matches("(ab)|(cd)*", ""));
+		assertFalse(matches("(ab)|(cd)", ""));
 	}
 	
 }
