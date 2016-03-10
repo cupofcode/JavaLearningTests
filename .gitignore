@@ -1,1 +1,5 @@
 /bin/
+/demo/
+/.classpath
+/.gitignore
+/.project
