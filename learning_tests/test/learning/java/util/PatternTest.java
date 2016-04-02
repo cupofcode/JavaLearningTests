@@ -13,6 +13,7 @@ public class PatternTest {
 
 		assertTrue(matches("a", "a"));
 		assertTrue(matches("aa", "aa"));
+		assertTrue(matches("abc", "abc"));
 		
 		assertFalse(matches("a", "aa"));
 		assertFalse(matches("aa", "a"));
@@ -34,7 +35,7 @@ public class PatternTest {
 	}
 	
 	@Test
-	public void matches_CharacterClasses_AnyCharacterExceptTheSpecifiedOnes() {
+	public void matches_CharacterClasses_AnyCharacterOtherThanTheSpecifiedOnes() {
 		assertTrue(matches("[^ab]", "c"));
 		assertFalse("Should match to single character", matches("[^ab]", "cc"));
 
@@ -48,38 +49,46 @@ public class PatternTest {
 		assertTrue(matches("[a-c]", "a"));
 		assertTrue(matches("[a-c]", "b"));
 		assertTrue(matches("[a-c]", "c"));
+		
 		assertFalse("Out of range", matches("[a-c]", "d"));
 		
+		assertTrue("a through c, or x through z", matches("[a-cx-z]", "b"));
 		assertTrue("a through c, or x through z", matches("[a-cx-z]", "y"));
+		assertFalse("a through c, or x through z", matches("[a-cx-z]", "k"));
 	}
 	
 	@Test
 	public void matches_CharacterClasses_Union() {
+		assertTrue("a through c, or x through z", matches("[a-c[x-z]]", "b"));
 		assertTrue("a through c, or x through z", matches("[a-c[x-z]]", "y"));
+		assertFalse("a through c, or x through z", matches("[a-c[x-z]]", "k"));
 	}
 	
 	@Test
 	public void matches_CharacterClasses_Intersection() {
-		assertTrue(matches("[a-c&&[bg]]", "b"));
-		assertFalse(matches("[a-c&&[bg]]", "c"));
+		assertTrue(matches("[a-c&&c-e]", "c"));
+		assertFalse(matches("[a-c&&c-e]", "d"));
 	}
 	
 	@Test
 	public void matches_CharacterClasses_Subtraction() {
-		assertTrue(matches("[a-c&&[^bg]]", "c"));
-		assertFalse(matches("[a-c&&[^bg]]", "b"));
-		
-		assertTrue(matches("[a-c&&[^b-d]]", "a"));
-		assertFalse(matches("[a-c&&[^b-d]]", "b"));
+		assertTrue(matches("[a-c&&[^c-e]]", "b"));
+		assertFalse(matches("[a-c&&[^c-e]]", "c"));
 	}
 	
 	@Test
 	public void matches_PredefinedCharacterClasses_AnyCharacter() {
 		assertTrue(matches(".", "a"));
 		assertTrue(matches(".", "b"));
+		assertTrue(matches(".", "."));
+		assertTrue(matches(".", "!"));
+		assertTrue(matches(".", "1"));
+		assertTrue(matches(".", " "));
 		
 		assertFalse(matches(".", ""));
 		assertFalse(matches(".", "aa"));
+		assertFalse("Next-line character is an exception", matches(".", "\n"));
+		assertFalse("Return character is an exception", matches(".", "\r"));
 	}
 
 	@Test
@@ -95,20 +104,29 @@ public class PatternTest {
 	public void matches_PredefinedCharacterClasses_NonDigit() {
 		assertTrue(matches("\\D", "z"));
 		assertTrue(matches("\\D", ","));
+		
 		assertFalse(matches("\\D", "0"));
 	}
 	
 	@Test
 	public void matches_PredefinedCharacterClasses_WhiteSpace() {
+		assertTrue(matches("\\s", " "));
 		assertTrue(matches("\\s", "\t"));
 		assertTrue(matches("\\s", "\n"));
 		assertTrue(matches("\\s", "\f"));
 		assertTrue(matches("\\s", "\r"));
+		
+		assertFalse(matches("\\s", ""));
+		assertFalse(matches("\\s", "  "));
+		assertFalse(matches("\\s", "\t\t"));
 	}
 	
 	@Test
 	public void matches_PredefinedCharacterClasses_NonWhiteSpace() {
 		assertTrue(matches("\\S", "a"));
+		assertTrue(matches("\\S", "_"));
+		
+		assertFalse(matches("\\S", " "));
 		assertFalse(matches("\\S", "\n"));
 	}
 	
@@ -124,6 +142,7 @@ public class PatternTest {
 	@Test
 	public void matches_PredefinedCharacterClasses_NonWord() {
 		assertTrue(matches("\\W", ","));
+		
 		assertFalse(matches("\\W", "a"));
 	}
 	
@@ -152,34 +171,16 @@ public class PatternTest {
 		assertFalse(matches("a+", ""));
 		assertFalse(matches("a+", "aab"));
 	}
-	
-	@Test
-	public void matches_LogicalOperations_X_FollowedBy_Y() {
-		assertTrue(matches("(ab)", "ab"));
-		assertTrue(matches("(ab)(ab)", "abab"));
-		
-		assertFalse(matches("(ab)(ab)", "ababab"));
-		
-		assertTrue(matches("()", ""));
-		assertTrue(matches("((aa))", "aa"));
-	}
-	
+
 	@Test
 	public void matches_LogicalOperations_Either_X_Or_Y() {
-		assertTrue(matches("(ab)|(cd)", "ab"));
-		assertTrue(matches("(ab)|(cd)", "cd"));
+		assertTrue(matches("ab|cd", "ab"));
+		assertTrue(matches("ab|cd", "cd"));
 		
-		assertFalse(matches("(ab)|(cd)", "ad"));
-		assertFalse(matches("(ab)|(cd)", "abcd"));
+		assertFalse(matches("ab|cd", "ad"));
 	}
 	
-	@Test
-	public void matches_LogicalOperationsMixedWithWithQuantifiers() {
-		assertTrue(matches("(ab)+", "abab"));
-		assertFalse(matches("(ab)", "abab"));
-		
-		assertTrue(matches("(ab)|(cd)*", ""));
-		assertFalse(matches("(ab)|(cd)", ""));
-	}
+	// TODO grouping
+
 	
 }
