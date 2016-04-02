@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class PatternTest {
+public class Pattern_MatchesTest {
 
 	@Test
 	public void matches_ReturnsTrueIfTheRegexIsExactlyTheSameAsTheInput() {
@@ -179,8 +179,5 @@ public class PatternTest {
 		
 		assertFalse(matches("ab|cd", "ad"));
 	}
-	
-	// TODO grouping
-
 	
 }
