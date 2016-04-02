@@ -547,6 +547,71 @@ public class Matcher_FindTest {
 		assertEquals(3, matcher.end(4));
 	}
 	
+	@Test
+	public void find_BoundaryMatchers_BeginningAndEndOfALine() {
+		matcher = compile("^dog$").matcher("dog");
+		assertTrue(matcher.find());
+		assertMatcher("dog", 0, 3);
+		
+		matcher = compile("^dog$").matcher("    dog");
+		assertFalse(matcher.find());
+		
+		matcher = compile("\\s*dog$").matcher("  dog");
+		assertTrue(matcher.find());
+		assertMatcher("  dog", 0, 5);
+		
+		matcher = compile("^dog\\w*").matcher("dogabc");
+		assertTrue(matcher.find());
+		assertMatcher("dogabc", 0, 6);
+	}
+	
+	@Test
+	public void find_BoundaryMatchers_WordBoundary() {
+		matcher = compile("\\bdog\\b").matcher("The dog plays in the yard.");
+		assertTrue(matcher.find());
+		assertMatcher("dog", 4, 7);
+	}
+	
+	@Test
+	public void find_BoundaryMatchers_NonWordBoundary() {
+		matcher = compile("\\bdog\\B").matcher("The dog plays in the yard.");
+		assertFalse(matcher.find());
+		
+		matcher = compile("\\bdog\\B").matcher("The doggie plays in the yard.");
+		assertTrue(matcher.find());
+		assertMatcher("dog", 4, 7);
+	}
+	
+	@Test
+	public void find_BoundaryMatchers_AtTheEndOfThePreviousMatch() {
+		matcher = compile("dog").matcher("dog dog");
+		
+		assertTrue(matcher.find());
+		assertMatcher("dog", 0, 3);
+		
+		assertTrue(matcher.find());
+		assertMatcher("dog", 4, 7);
+		
+		// --
+		
+		matcher = compile("\\Gdog").matcher("dog dog");
+		
+		assertTrue(matcher.find());
+		assertMatcher("dog", 0, 3);
+		
+		assertFalse(matcher.find());
+		
+		// --
+		
+		matcher = compile("\\Gdog").matcher("dogdog");
+
+		assertTrue(matcher.find());
+		assertMatcher("dog", 0, 3);
+		
+		assertTrue(matcher.find());
+		assertMatcher("dog", 3, 6);
+	}
+	
 	private void assertMatcher(String group, int start, int end) {
 		assertEquals(group, matcher.group());
 		assertEquals(start, matcher.start());
