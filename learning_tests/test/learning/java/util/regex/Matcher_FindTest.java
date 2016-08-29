@@ -1,4 +1,4 @@
-package test.learning.java.util;
+package test.learning.java.util.regex;
 
 import static java.util.regex.Pattern.compile;
 import static org.junit.Assert.assertEquals;
