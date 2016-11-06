@@ -9,7 +9,7 @@ import org.junit.Test;
 public class FunctionTest {
 
 	@Test
-	public void function_RegularImplementation() {
+	public void createWithApplyImplementation() {
 		Function<Integer, String> integerToString = new Function<Integer, String>() {
 
 			@Override
@@ -22,7 +22,7 @@ public class FunctionTest {
 	}
 	
 	@Test
-	public void function_ShortHandNotation() {
+	public void shortHandNotation() {
 		Function<Integer, String> integerToString = integer -> String.valueOf(integer);
 		assertEquals("123", integerToString.apply(123));
 	}
@@ -35,7 +35,7 @@ public class FunctionTest {
 	}
 	
 	@Test
-	public void function_AssignedToAClassMethod() {
+	public void assigningToAClassMethod() {
 		Function<Integer, String> integerToString = C::integerToString;
 		assertEquals("123", integerToString.apply(123));
 	}
@@ -45,17 +45,32 @@ public class FunctionTest {
 		Function<Integer, Integer> square = x -> x * x;
 		Function<Integer, Integer> half = x -> x / 2;
 		
-		assertEquals(new Integer(8), half.apply(square.apply(4)));
-		assertEquals(new Integer(4), square.apply(half.apply(4)));
+		Function<Integer, Integer> squareHalf = x -> half.apply(square.apply(x));
+		Function<Integer, Integer> halfSquare = x -> square.apply(half.apply(x));
+		
+		assertEquals(new Integer(8), squareHalf.apply(4));
+		assertEquals(new Integer(4), halfSquare.apply(4));
 	}
 	
 	@Test
-	public void compose_FunctionChain() {
+	public void compose_FunctionComposition() {
 		Function<Integer, Integer> square = x -> x * x;
 		Function<Integer, Integer> half = x -> x / 2;
 		
 		Function<Integer, Integer> squareHalf = half.compose(square);
 		Function<Integer, Integer> halfSquare = square.compose(half);
+		
+		assertEquals(new Integer(8), squareHalf.apply(4));
+		assertEquals(new Integer(4), halfSquare.apply(4));
+	}
+	
+	@Test
+	public void before_FunctionComposition() {
+		Function<Integer, Integer> square = x -> x * x;
+		Function<Integer, Integer> half = x -> x / 2;
+		
+		Function<Integer, Integer> squareHalf = square.andThen(half);
+		Function<Integer, Integer> halfSquare = half.andThen(square);
 		
 		assertEquals(new Integer(8), squareHalf.apply(4));
 		assertEquals(new Integer(4), halfSquare.apply(4));
