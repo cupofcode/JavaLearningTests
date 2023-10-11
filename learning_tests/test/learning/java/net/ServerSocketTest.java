@@ -15,7 +15,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class ServerSocketTest {
-	private static final int LOCAL_PORT = 1001;
+	private static final int LOCAL_PORT = 9001;
 	
 	private ServerSocket serverSocket;
 	
@@ -65,8 +65,8 @@ public class ServerSocketTest {
 	public void receiveBufferSize() throws SocketException {
 		assertEquals("Buffer size by default", 65536, serverSocket.getReceiveBufferSize());
 		
-		serverSocket.setReceiveBufferSize(1000000);
-		assertEquals(1000000, serverSocket.getReceiveBufferSize());
+		serverSocket.setReceiveBufferSize(10000);
+		assertEquals(10000, serverSocket.getReceiveBufferSize());
 	}
 	
 	@Test
