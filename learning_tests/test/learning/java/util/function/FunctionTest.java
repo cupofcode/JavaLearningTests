@@ -48,8 +48,8 @@ public class FunctionTest {
 		Function<Integer, Integer> squareHalf = x -> half.apply(square.apply(x));
 		Function<Integer, Integer> halfSquare = x -> square.apply(half.apply(x));
 		
-		assertEquals(new Integer(8), squareHalf.apply(4));
-		assertEquals(new Integer(4), halfSquare.apply(4));
+		assertEquals(Integer.valueOf(8), squareHalf.apply(4));
+		assertEquals(Integer.valueOf(4), halfSquare.apply(4));
 	}
 	
 	@Test
@@ -60,8 +60,8 @@ public class FunctionTest {
 		Function<Integer, Integer> squareHalf = half.compose(square);
 		Function<Integer, Integer> halfSquare = square.compose(half);
 		
-		assertEquals(new Integer(8), squareHalf.apply(4));
-		assertEquals(new Integer(4), halfSquare.apply(4));
+		assertEquals(Integer.valueOf(8), squareHalf.apply(4));
+		assertEquals(Integer.valueOf(4), halfSquare.apply(4));
 	}
 	
 	@Test
@@ -72,8 +72,8 @@ public class FunctionTest {
 		Function<Integer, Integer> squareHalf = square.andThen(half);
 		Function<Integer, Integer> halfSquare = half.andThen(square);
 		
-		assertEquals(new Integer(8), squareHalf.apply(4));
-		assertEquals(new Integer(4), halfSquare.apply(4));
+		assertEquals(Integer.valueOf(8), squareHalf.apply(4));
+		assertEquals(Integer.valueOf(4), halfSquare.apply(4));
 	}
 
 }
