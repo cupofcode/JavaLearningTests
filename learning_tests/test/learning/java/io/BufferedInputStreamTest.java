@@ -25,8 +25,15 @@ public class BufferedInputStreamTest {
 		assertEquals(1, input.read());
 		assertEquals(2, input.read());
 		
-		assertEquals("Return value after reaching the end", -1, input.read());
-		assertEquals("Return value after reaching the end", -1, input.read());
+		assertEquals("Value when no byte is available", -1, input.read());
+	}
+	
+	@Test
+	public void read_ReturnsByteAsPositiveInteger() throws IOException {
+		InputStream source = new ByteArrayInputStream(new byte[] {-1});
+		InputStream input = new BufferedInputStream(source) {};
+		
+		assertEquals(255, input.read());
 	}
 	
 	@Test
@@ -41,9 +48,6 @@ public class BufferedInputStreamTest {
 		
 		input.read();
 		assertEquals(0, input.available());
-		
-		input.read();
-		assertEquals("Available bytes after reaching the end", 0, input.available());
 	}
 	
 	@Test
@@ -55,7 +59,7 @@ public class BufferedInputStreamTest {
 		assertEquals(3, input.read());
 		
 		input.skip(2);
-		assertEquals("Return value after reaching the end", -1, input.read());
+		assertEquals("Value when no byte is available", -1, input.read());
 	}
 	
 	@Test

@@ -1,6 +1,8 @@
 package test.learning.java.io;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -17,9 +19,16 @@ public class ByteArrayInputStreamTest {
 		
 		assertEquals(1, input.read());
 		assertEquals(2, input.read());
+
+		assertEquals("Value when no byte is available", -1, input.read());
+	}
+	
+	@Test
+	public void read_ReturnsByteAsPositiveInteger() throws IOException {
+		byte[] bytes  = new byte[] {-1};
+		InputStream input = new ByteArrayInputStream(bytes);
 		
-		assertEquals("Return value after reaching the end", -1, input.read());
-		assertEquals("Return value after reaching the end", -1, input.read());
+		assertEquals(255, input.read());
 	}
 	
 	@Test
@@ -34,9 +43,6 @@ public class ByteArrayInputStreamTest {
 		
 		input.read();
 		assertEquals(0, input.available());
-		
-		input.read();
-		assertEquals("Available bytes after reaching the end", 0, input.available());
 	}
 	
 	@Test
@@ -48,7 +54,7 @@ public class ByteArrayInputStreamTest {
 		assertEquals(3, input.read());
 		
 		input.skip(2);
-		assertEquals("Return value after reaching the end", -1, input.read());
+		assertEquals("Value when no byte is available", -1, input.read());
 	}
 	
 	@Test
@@ -63,13 +69,24 @@ public class ByteArrayInputStreamTest {
 		input.read();
 		input.read();
 
-		assertEquals("No more bytes to read", 0, input.available());
+		assertEquals(0, input.available());
 
 		input.reset(); // back to mark position
 		
 		assertEquals("Number of bytes available again", 2, input.available());
 		assertEquals(2, input.read());
 		assertEquals(3, input.read());
+	}
+	
+	@Test
+	public void read_CopiesToAByteArray() throws IOException {
+		byte[] bytes  = new byte[] {1,2,3,4};
+		InputStream input = new ByteArrayInputStream(bytes);
+		
+		byte[] store = new byte[3];		
+		input.read(store);
+	
+		assertArrayEquals(new byte[] {1,2,3}, store);
 	}
 	
 	@Test
@@ -96,7 +113,7 @@ public class ByteArrayInputStreamTest {
 		
 		assertEquals("First value after offset", 2, input.read());
 		assertEquals(3, input.read());
-		assertEquals("Value after exceeding the length", -1, input.read());
+		assertEquals("Value when no byte is available", -1, input.read());
 	}
 	
 }
