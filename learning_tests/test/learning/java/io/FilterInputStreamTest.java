@@ -12,7 +12,7 @@ import org.junit.Test;
 class FilterInputStreamTest extends _InputStreamTest {
 	
 	@Override
-	InputStream createInputStream(byte[] bytes) {
+	InputStream setUpInputStream(byte[] bytes) {
 		InputStream source = new ByteArrayInputStream(bytes);
 		return new FilterInputStream(source) {};
 	}

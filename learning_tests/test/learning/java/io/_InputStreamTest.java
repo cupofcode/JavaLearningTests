@@ -11,12 +11,12 @@ import org.junit.jupiter.api.Test;
 
 abstract class _InputStreamTest {
 	
-	// Let subclasses decide what to create.
-	abstract InputStream createInputStream(byte[] bytes);
+	// Let subclasses decide what to set up.
+	abstract InputStream setUpInputStream(byte[] bytes);
 	
 	@Test
 	void read_ReturnsTheNextByteInTheStream() throws IOException {
-		InputStream input = createInputStream(new byte[] {1,2});
+		InputStream input = setUpInputStream(new byte[] {1,2});
 		
 		assertEquals(1, input.read());
 		assertEquals(2, input.read());
@@ -26,13 +26,13 @@ abstract class _InputStreamTest {
 	
 	@Test
 	void read_ReturnsBytesAsPositiveIntegers() throws IOException {
-		InputStream input = createInputStream(new byte[] {-1});
+		InputStream input = setUpInputStream(new byte[] {-1});
 		assertEquals(255, input.read());
 	}
 	
 	@Test
 	void available_ReturnsTheNumberOfBytesThatCanBeRead() throws IOException {
-		InputStream input = createInputStream(new byte[] {1,2});
+		InputStream input = setUpInputStream(new byte[] {1,2});
 		
 		assertEquals(2, input.available());
 		
@@ -45,7 +45,7 @@ abstract class _InputStreamTest {
 	
 	@Test
 	void skip_JumpsOverSpecifiedNumberOfBytes() throws IOException {
-		InputStream input = createInputStream(new byte[] {1,2,3});
+		InputStream input = setUpInputStream(new byte[] {1,2,3});
 		
 		input.skip(2);
 		assertEquals(3, input.read());
@@ -56,7 +56,7 @@ abstract class _InputStreamTest {
 	
 	@Test
 	void mark_And_Reset_MakesAlreadyReadBytesAvailableAgain() throws IOException {
-		InputStream input = createInputStream(new byte[] {1,2,3});
+		InputStream input = setUpInputStream(new byte[] {1,2,3});
 		
 		assertTrue(input.markSupported());
 		
@@ -77,7 +77,7 @@ abstract class _InputStreamTest {
 	
 	@Test
 	void read_CopiesToAByteArray() throws IOException {
-		InputStream input = createInputStream(new byte[] {1,2,3,4});
+		InputStream input = setUpInputStream(new byte[] {1,2,3,4});
 		
 		byte[] store = new byte[3];		
 		input.read(store);
@@ -87,7 +87,7 @@ abstract class _InputStreamTest {
 	
 	@Test
 	void read_CopiesToAByteArrayWithOffsetAndLength() throws IOException {
-		InputStream input = createInputStream(new byte[] {1,2,3,4});
+		InputStream input = setUpInputStream(new byte[] {1,2,3,4});
 		
 		byte[] store = new byte[5];
 		int offsetInStore = 1;

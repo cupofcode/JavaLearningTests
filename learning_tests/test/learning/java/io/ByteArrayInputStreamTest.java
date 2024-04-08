@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 class ByteArrayInputStreamTest extends _InputStreamTest {
 	
 	@Override
-	InputStream createInputStream(byte[] bytes) {
+	InputStream setUpInputStream(byte[] bytes) {
 		return new ByteArrayInputStream(bytes);
 	}
 	

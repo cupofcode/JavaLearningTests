@@ -10,12 +10,29 @@ import java.io.InputStream;
 
 import org.junit.Test;
 
-class BufferedInputStreamTest extends FilterInputStreamTest {
+class BufferedInputStreamTest extends _InputStreamTest {
 
 	@Override
-	InputStream createInputStream(byte[] bytes) {
+	InputStream setUpInputStream(byte[] bytes) {
 		InputStream source = new ByteArrayInputStream(bytes);
 		return new BufferedInputStream(source) {};
+	}
+	
+	@Test
+	void close_ClosesTheSourceStream() throws IOException {
+		StringBuilder callStack = new StringBuilder();
+		
+		InputStream source = new InputStream() {
+			public void close() {callStack.append("-close");}
+			public int read() throws IOException {return 0;} // dummy
+		};
+		
+		InputStream input = new BufferedInputStream(source) {};
+		
+		// Exercise
+		input.close();
+		
+		assertEquals("-close", callStack.toString());
 	}
 	
 	@Test
