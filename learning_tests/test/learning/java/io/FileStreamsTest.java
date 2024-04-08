@@ -9,22 +9,22 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-public class FileStreamsTest {
+class FileStreamsTest {
 	private File file;
 	private FileOutputStream fileOutput;
 	private FileInputStream fileInput;
 	
-	@Before
-	public void setUp() {
+	@BeforeEach
+	void setUp() {
 		file = new File("file");
 	}
 	
-	@After
-	public void tearDown() throws IOException {
+	@AfterEach
+	void tearDown() throws IOException {
 		if (fileOutput != null) {
 			fileOutput.close();
 		}
@@ -39,7 +39,7 @@ public class FileStreamsTest {
 	}
 
 	@Test
-	public void bytesWrittenIntoFileOutputStreamAreReadFromFileInputStream() throws IOException {
+	void bytesWrittenIntoFileOutputStreamAreReadFromFileInputStream() throws IOException {
 		fileOutput = new FileOutputStream(file);
 		
 		fileOutput.write(1);
@@ -54,7 +54,7 @@ public class FileStreamsTest {
 	}
 	
 	@Test
-	public void fileOutputStreamConstructorCreatesTheRealFileOnDisk() throws IOException {
+	void fileOutputStreamConstructorCreatesTheRealFileOnDisk() throws IOException {
 		assertFalse("File should NOT be creted on disk", file.exists());
 		
 		fileOutput = new FileOutputStream(file);
@@ -62,7 +62,7 @@ public class FileStreamsTest {
 	}
 	
 	@Test
-	public void writeAfterReopeningTheFileOverwritesByDefault() throws IOException {		
+	void writeAfterReopeningTheFileOverwritesByDefault() throws IOException {		
 		fileOutput = new FileOutputStream(file);
 		fileOutput.write(1);
 		fileOutput.close();
@@ -77,7 +77,7 @@ public class FileStreamsTest {
 	}
 	
 	@Test
-	public void appendingNewBytesAfterReopeningTheFile() throws IOException {		
+	void appendingNewBytesAfterReopeningTheFile() throws IOException {		
 		fileOutput = new FileOutputStream(file);
 		fileOutput.write(1);
 		fileOutput.close();

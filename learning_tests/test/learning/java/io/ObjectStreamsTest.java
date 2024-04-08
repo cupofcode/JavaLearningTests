@@ -1,6 +1,8 @@
 package test.learning.java.io;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -9,31 +11,31 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("serial")
-public class ObjectStreamsTest {
+class ObjectStreamsTest {
 	private ByteArrayOutputStream outputStore;
 	private ObjectOutputStream objectOutput;
 	
 	private ObjectInputStream objectInput;
 
-	@Before
-	public void setUp() throws IOException {
+	@BeforeEach
+	void setUp() throws IOException {
 		outputStore = new ByteArrayOutputStream();
 		objectOutput = new ObjectOutputStream(outputStore);
 	}
 	
-	@After
-	public void tearDown() throws IOException {
+	@AfterEach
+	void tearDown() throws IOException {
 		objectOutput.close();
 		objectInput.close();
 	}
 
 	@Test
-	public void writeAndReadObjectWithVariousFields() throws Exception {
+	void writeAndReadObjectWithVariousFields() throws Exception {
 		DataClass object = new DataClass();
 		objectOutput.writeObject(object);
 		
@@ -53,7 +55,7 @@ public class ObjectStreamsTest {
 	}
 	
 	@Test
-	public void superClassesAndReferencedClassesAreSupported() throws Exception {
+	void superClassesAndReferencedClassesAreSupported() throws Exception {
 		MyClass object = new MyClass();
 		objectOutput.writeObject(object);
 		
@@ -66,7 +68,7 @@ public class ObjectStreamsTest {
 	}
 	
 	@Test
-	public void sameObjectsInObjectStreamAreHeldByTheSameReference() throws Exception {		
+	void sameObjectsInObjectStreamAreHeldByTheSameReference() throws Exception {		
 		MyClass object = new MyClass();
 		objectOutput.writeObject(object);
 		objectOutput.writeObject(object);

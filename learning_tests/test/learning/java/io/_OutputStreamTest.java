@@ -1,12 +1,13 @@
 package test.learning.java.io;
 
-import static org.junit.Assert.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
 
 abstract class _OutputStreamTest {
 	
@@ -18,7 +19,7 @@ abstract class _OutputStreamTest {
 	abstract OutputStream setUpOutputStream();
 	
 	@Test
-	public void write_Byte() throws IOException {
+	void write_Byte() throws IOException {
 		OutputStream output = setUpOutputStream();
 
 		output.write(1);
@@ -28,7 +29,7 @@ abstract class _OutputStreamTest {
 	}
 	
 	@Test
-	public void write_Bytes() throws IOException {
+	void write_Bytes() throws IOException {
 		OutputStream output = setUpOutputStream();
 		
 		// Exercise
@@ -38,7 +39,7 @@ abstract class _OutputStreamTest {
 	}
 	
 	@Test
-	public void write_BytesWithOffsetAndLength() throws IOException {
+	void write_BytesWithOffsetAndLength() throws IOException {
 		byte[] source  = new byte[] {1,2,3,4};
 		int offsetInSource= 1;
 		int lengthToRead = 2;

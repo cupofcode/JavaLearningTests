@@ -1,8 +1,9 @@
 package test.learning.java.io;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,7 +22,7 @@ abstract class _InputStreamTest {
 		assertEquals(1, input.read());
 		assertEquals(2, input.read());
 
-		assertEquals("Value when no byte is available", -1, input.read());
+		assertEquals(-1, input.read(), "Value when no byte is available");
 	}
 	
 	@Test
@@ -51,7 +52,7 @@ abstract class _InputStreamTest {
 		assertEquals(3, input.read());
 		
 		input.skip(2);
-		assertEquals("Value when no byte is available", -1, input.read());
+		assertEquals(-1, input.read(), "Value when no byte is available");
 	}
 	
 	@Test
@@ -93,7 +94,7 @@ abstract class _InputStreamTest {
 	
 		input.reset(); // back to mark position
 		
-		assertEquals("Number of bytes available again", 2, input.available());
+		assertEquals(2, input.available(), "Number of bytes available again");
 		assertEquals(2, input.read());
 		assertEquals(3, input.read());
 	}

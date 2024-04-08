@@ -1,14 +1,14 @@
 package test.learning.java.io;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 class BufferedInputStreamTest extends _InputStreamTest {
 
@@ -58,7 +58,7 @@ class BufferedInputStreamTest extends _InputStreamTest {
 
 		input.reset(); // back to mark position
 		
-		assertEquals("Number of bytes available again", 2, input.available());
+		assertEquals(2, input.available(), "Number of bytes available again");
 		assertEquals(2, input.read());
 		assertEquals(3, input.read());
 	}

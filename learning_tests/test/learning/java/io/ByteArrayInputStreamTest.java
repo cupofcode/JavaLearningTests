@@ -1,6 +1,7 @@
 package test.learning.java.io;
 
-import static org.junit.Assert.assertEquals;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -23,9 +24,9 @@ class ByteArrayInputStreamTest extends _InputStreamTest {
 		
 		InputStream input = new ByteArrayInputStream(bytes, offset, length);
 		
-		assertEquals("First value at offset index", 2, input.read());
+		assertEquals(2, input.read(), "First value at offset index");
 		assertEquals(3, input.read());
-		assertEquals("Value when no byte is available", -1, input.read());
+		assertEquals(-1, input.read(), "Value when no byte is available");
 	}
 	
 }

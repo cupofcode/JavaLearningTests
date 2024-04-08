@@ -1,15 +1,16 @@
 package test.learning.java.io;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
+
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class ByteArrayOutputStreamTest extends _OutputStreamTest {
+class ByteArrayOutputStreamTest extends _OutputStreamTest {
 
 	@Override
 	OutputStream setUpOutputStream() {
@@ -18,7 +19,7 @@ public class ByteArrayOutputStreamTest extends _OutputStreamTest {
 	}
 	
 	@Test
-	public void size() {
+	void size() {
 		ByteArrayOutputStream output = new ByteArrayOutputStream();
 		assertEquals(0, output.size());
 		
@@ -30,7 +31,7 @@ public class ByteArrayOutputStreamTest extends _OutputStreamTest {
 	}
 	
 	@Test
-	public void writeTo_WritesContentToAnotherOutputStream() throws IOException {
+	void writeTo_WritesContentToAnotherOutputStream() throws IOException {
 		ByteArrayOutputStream output = new ByteArrayOutputStream();
 		output.write(1);
 		output.write(2);
@@ -42,7 +43,7 @@ public class ByteArrayOutputStreamTest extends _OutputStreamTest {
 	}
 	
 	@Test
-	public void reset_DiscardsAllPreviouslyWritttenBytes() {
+	void reset_DiscardsAllPreviouslyWritttenBytes() {
 		ByteArrayOutputStream output = new ByteArrayOutputStream();
 		output.write(1);
 		output.write(2);
@@ -55,7 +56,7 @@ public class ByteArrayOutputStreamTest extends _OutputStreamTest {
 	}
 	
 	@Test
-	public void toString_() {
+	void toString_() {
 		ByteArrayOutputStream output = new ByteArrayOutputStream();
 		output.write('A');
 		output.write('B');

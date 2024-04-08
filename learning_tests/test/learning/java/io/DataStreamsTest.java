@@ -1,18 +1,19 @@
 package test.learning.java.io;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-import static org.junit.Assert.*;
 import org.junit.Test;
 
-public class DataStreamsTest {
+class DataStreamsTest {
 
 	@Test
-	public void pushIntoDataOutputStreamAndPullFromDataInputStream() throws IOException {
+	void pushIntoDataOutputStreamAndPullFromDataInputStream() throws IOException {
 		ByteArrayOutputStream outputStore = new ByteArrayOutputStream();
 		DataOutputStream dataOutput = new DataOutputStream(outputStore);
 		

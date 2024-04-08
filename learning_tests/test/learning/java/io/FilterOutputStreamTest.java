@@ -7,13 +7,13 @@ import java.io.FilterOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test methods of this class are almost identical to 
  * {@code ByteArrayOutputStreamTest}.
  */
-public class FilterOutputStreamTest extends _OutputStreamTest {
+class FilterOutputStreamTest extends _OutputStreamTest {
 
 	OutputStream setUpOutputStream() {
 		store = new ByteArrayOutputStream();
@@ -21,7 +21,7 @@ public class FilterOutputStreamTest extends _OutputStreamTest {
 	}
 	
 	@Test
-	public void flush_FlushesTheStore() throws IOException {
+	void flush_FlushesTheStore() throws IOException {
 		StringBuilder callStack = new StringBuilder();
 		
 		OutputStream store = new OutputStream() {
@@ -39,7 +39,7 @@ public class FilterOutputStreamTest extends _OutputStreamTest {
 	}
 	
 	@Test
-	public void close_FlushesAndClosesTheStore() throws IOException {
+	void close_FlushesAndClosesTheStore() throws IOException {
 		StringBuilder callStack = new StringBuilder();
 		
 		OutputStream store = new OutputStream() {
