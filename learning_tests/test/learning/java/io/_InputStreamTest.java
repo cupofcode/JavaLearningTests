@@ -25,7 +25,7 @@ abstract class _InputStreamTest {
 	}
 	
 	@Test
-	void read_ReturnsBytesAsPositiveIntegers() throws IOException {
+	void read_ReturnsByteAsPositiveInteger() throws IOException {
 		InputStream input = setUpInputStream(new byte[] {-1});
 		assertEquals(255, input.read());
 	}
@@ -55,27 +55,6 @@ abstract class _InputStreamTest {
 	}
 	
 	@Test
-	void mark_And_Reset_MakesAlreadyReadBytesAvailableAgain() throws IOException {
-		InputStream input = setUpInputStream(new byte[] {1,2,3});
-		
-		assertTrue(input.markSupported());
-		
-		assertEquals(1, input.read());
-		input.mark(Integer.MAX_VALUE); // marks at 1
-		
-		assertEquals(2, input.read());
-		assertEquals(3, input.read());
-
-		assertEquals(0, input.available());
-
-		input.reset(); // back to mark position
-		
-		assertEquals("Number of bytes available again", 2, input.available());
-		assertEquals(2, input.read());
-		assertEquals(3, input.read());
-	}
-	
-	@Test
 	void read_CopiesToAByteArray() throws IOException {
 		InputStream input = setUpInputStream(new byte[] {1,2,3,4});
 		
@@ -96,6 +75,27 @@ abstract class _InputStreamTest {
 		input.read(store, offsetInStore, lengthToRead);
 
 		assertArrayEquals(new byte[] {0,1,2,3,0}, store);
+	}
+
+	@Test
+	void mark_And_Reset_MakesPrevioslyReadBytesAvailableAgain() throws IOException {
+		InputStream input = setUpInputStream(new byte[] {1,2,3});
+		
+		assertTrue(input.markSupported());
+		
+		assertEquals(1, input.read());
+		input.mark(Integer.MAX_VALUE); // marks at 1
+		
+		assertEquals(2, input.read());
+		assertEquals(3, input.read());
+	
+		assertEquals(0, input.available());
+	
+		input.reset(); // back to mark position
+		
+		assertEquals("Number of bytes available again", 2, input.available());
+		assertEquals(2, input.read());
+		assertEquals(3, input.read());
 	}
 	
 }

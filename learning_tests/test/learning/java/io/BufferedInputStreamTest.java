@@ -36,7 +36,7 @@ class BufferedInputStreamTest extends _InputStreamTest {
 	}
 	
 	@Test
-	void mark_And_Reset_MakesAlreadyReadBytesAvailableAgain() throws IOException {
+	void thisClassMakesMarkResetCapabilityAvailableAgain() throws IOException {
 
 		// Source without mark-reset capability
 		InputStream source = new ByteArrayInputStream(new byte[] {1,2,3}) {

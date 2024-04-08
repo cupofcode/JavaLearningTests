@@ -14,12 +14,13 @@ abstract class _OutputStreamTest {
 	// Let subclasses decide what store to be.
 	ByteArrayOutputStream store;
 
-	// Let subclasses decide which OutputStream to be tested.
-	abstract OutputStream createOutputStream();
+	// Let subclasses decide which OutputStream to be set up.
+	abstract OutputStream setUpOutputStream();
 	
 	@Test
-	public void write() throws IOException {
-		OutputStream output = createOutputStream();
+	public void write_Byte() throws IOException {
+		OutputStream output = setUpOutputStream();
+
 		output.write(1);
 		output.write(2);
 		
@@ -27,23 +28,22 @@ abstract class _OutputStreamTest {
 	}
 	
 	@Test
-	public void write_FromPredefinedByteSourceToTheStore() throws IOException {
-		byte[] source  = new byte[] {1,2,3,4};
-		OutputStream output = createOutputStream();
+	public void write_Bytes() throws IOException {
+		OutputStream output = setUpOutputStream();
 		
 		// Exercise
-		output.write(source);
+		output.write(new byte[] {1,2,3,4});
 	
 		assertArrayEquals(new byte[] {1,2,3,4},  store.toByteArray());
 	}
 	
 	@Test
-	public void write_FromPredefinedByteSourceWithOffsetAndLengthToTheStore() throws IOException {
+	public void write_BytesWithOffsetAndLength() throws IOException {
 		byte[] source  = new byte[] {1,2,3,4};
 		int offsetInSource= 1;
 		int lengthToRead = 2;
 		
-		OutputStream output = createOutputStream();
+		OutputStream output = setUpOutputStream();
 		
 		// Exercise
 		output.write(source, offsetInSource, lengthToRead);

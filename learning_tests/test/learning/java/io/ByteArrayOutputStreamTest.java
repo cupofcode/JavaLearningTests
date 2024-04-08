@@ -12,7 +12,7 @@ import org.junit.Test;
 public class ByteArrayOutputStreamTest extends _OutputStreamTest {
 
 	@Override
-	OutputStream createOutputStream() {
+	OutputStream setUpOutputStream() {
 		store = new ByteArrayOutputStream(); // store is itself
 		return store;
 	}

@@ -15,7 +15,7 @@ import org.junit.Test;
  */
 public class FilterOutputStreamTest extends _OutputStreamTest {
 
-	OutputStream createOutputStream() {
+	OutputStream setUpOutputStream() {
 		store = new ByteArrayOutputStream();
 		return new FilterOutputStream(store);
 	}

@@ -13,7 +13,7 @@ import org.junit.Test;
 public class BufferedOutputStreamTest extends _OutputStreamTest {
 	
 	@Override
-	OutputStream createOutputStream() {
+	OutputStream setUpOutputStream() {
 		store = new ByteArrayOutputStream();
 		return new FilterOutputStream(store);
 	}
