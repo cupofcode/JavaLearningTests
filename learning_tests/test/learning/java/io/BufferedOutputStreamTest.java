@@ -4,11 +4,19 @@ import static org.junit.Assert.*;
 
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.FilterOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 
 import org.junit.Test;
 
-public class BufferedOutputStreamTest {
+public class BufferedOutputStreamTest extends _OutputStreamTest {
+	
+	@Override
+	OutputStream createOutputStream() {
+		store = new ByteArrayOutputStream();
+		return new FilterOutputStream(store);
+	}
 
 	@Test
 	public void bufferedStreamAutoflushesItsContentWhenTheBufferIsFull() throws IOException {

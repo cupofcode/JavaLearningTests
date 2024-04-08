@@ -1,21 +1,20 @@
 package test.learning.java.io;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 
 import org.junit.Test;
 
-public class ByteArrayOutputStreamTest {
+public class ByteArrayOutputStreamTest extends _OutputStreamTest {
 
-	@Test
-	public void write() throws IOException {
-		ByteArrayOutputStream output = new ByteArrayOutputStream();
-		output.write(1);
-		output.write(2);
-		
-		assertArrayEquals(new byte[] {1,2},  output.toByteArray());
+	@Override
+	OutputStream createOutputStream() {
+		store = new ByteArrayOutputStream(); // store is itself
+		return store;
 	}
 	
 	@Test
@@ -28,18 +27,6 @@ public class ByteArrayOutputStreamTest {
 		
 		output.write(2);
 		assertEquals(2, output.size());
-	}
-	
-	@Test
-	public void write_WithOffsetAndLengthFromPredefinedByteSource() {
-		byte[] source  = new byte[] {1,2,3,4};
-		int offsetInSource= 1;
-		int lengthToRead = 2;
-		
-		ByteArrayOutputStream output = new ByteArrayOutputStream();
-		output.write(source, offsetInSource, lengthToRead);
-		
-		assertArrayEquals(new byte[] {2,3},  output.toByteArray());
 	}
 	
 	@Test

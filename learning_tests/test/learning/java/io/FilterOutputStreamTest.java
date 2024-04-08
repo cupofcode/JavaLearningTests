@@ -1,6 +1,5 @@
 package test.learning.java.io;
 
-import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
 import java.io.ByteArrayOutputStream;
@@ -14,43 +13,11 @@ import org.junit.Test;
  * Test methods of this class are almost identical to 
  * {@code ByteArrayOutputStreamTest}.
  */
-public class FilterOutputStreamTest {
+public class FilterOutputStreamTest extends _OutputStreamTest {
 
-	@Test
-	public void write_WritesToTheStore() throws IOException {
-		ByteArrayOutputStream store = new ByteArrayOutputStream();
-		OutputStream output = new FilterOutputStream(store);
-		
-		output.write(1);
-		output.write(2);
-		
-		assertArrayEquals(new byte[] {1,2},  store.toByteArray());
-	}
-	
-	@Test
-	public void write_FromPredefinedByteSourceToTheStore() throws IOException {
-		byte[] source  = new byte[] {1,2,3,4};
-		
-		ByteArrayOutputStream store = new ByteArrayOutputStream();
-		OutputStream output = new FilterOutputStream(store);
-		
-		output.write(source);
-	
-		assertArrayEquals(new byte[] {1,2,3,4},  store.toByteArray());
-	}
-
-	@Test
-	public void write_FromPredefinedByteSourceWithOffsetAndLengthToTheStore() throws IOException {
-		byte[] source  = new byte[] {1,2,3,4};
-		int offsetInSource= 1;
-		int lengthToRead = 2;
-		
-		ByteArrayOutputStream store = new ByteArrayOutputStream();
-		OutputStream output = new FilterOutputStream(store);
-		
-		output.write(source, offsetInSource, lengthToRead);
-
-		assertArrayEquals(new byte[] {2,3},  store.toByteArray());
+	OutputStream createOutputStream() {
+		store = new ByteArrayOutputStream();
+		return new FilterOutputStream(store);
 	}
 	
 	@Test

@@ -11,10 +11,8 @@ import org.junit.jupiter.api.Test;
 
 abstract class _InputStreamTest {
 	
-	// TODO make it abstract. Let subclasses decide what to create.
-	InputStream createInputStream(byte[] bytes) {
-		return null;
-	}
+	// Let subclasses decide what to create.
+	abstract InputStream createInputStream(byte[] bytes);
 	
 	@Test
 	void read_ReturnsTheNextByteInTheStream() throws IOException {
