@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 class ByteArrayInputStreamTest extends _InputStreamTest {
 	
 	@Override
-	InputStream setUpInputStream(byte[] bytes) {
+	InputStream createInputStream(byte[] bytes) {
 		return new ByteArrayInputStream(bytes);
 	}
 	
