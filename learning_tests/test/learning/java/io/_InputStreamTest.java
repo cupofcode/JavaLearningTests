@@ -107,7 +107,7 @@ abstract class _InputStreamTest {
 	}
 	
 	@Test
-	void markSupported_ReturnsTrueForThisClassToIndicateItSupportsMartAndReset() {
+	void markSupported_ReturnsTrueForThisClassToIndicateThatItSupportsMarkAndReset() {
 		InputStream input = createInputStream(new byte[] {1,2,3});
 		assertTrue(input.markSupported());
 	}
